@@ -44,13 +44,12 @@ class TaskServiceTest {
     public void testCreateTask(){
         Task task = Task.builder()
                 .title("Test title")
-                .user(user)
                 .dueDate(LocalDate.of(2100, 12, 12))
                 .build();
 
         given(taskRepository.save(task)).willReturn(task);
 
-        Task savedTask = taskService.createTask(task);
+        Task savedTask = taskService.createTask(task, user);
 
         assertThat(savedTask).isNotNull();
         assertThat(savedTask.getTitle()).isEqualTo("Test title");

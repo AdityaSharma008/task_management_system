@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.UserDTO;
 import com.example.model.User;
 import com.example.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -18,16 +20,19 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public List<UserDTO> getAllUsers(){
+        return userService.getAllUsers().stream()
+                .map(UserDTO::toUserDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@RequestParam Long id){
+    public ResponseEntity<UserDTO> getUserById(@RequestParam Long id){
         User requestedUser = userService.getUserById(id);
+        UserDTO requestedUserDTO = UserDTO.toUserDTO(requestedUser);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(requestedUser);
+                .body(requestedUserDTO);
     }
 
     @PostMapping
