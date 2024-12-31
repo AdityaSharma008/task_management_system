@@ -35,7 +35,7 @@ class TaskControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void testCreateTaskSuccess() throws Exception{
+    public void testCreateTaskSuccess() throws Exception{
         TaskDTO taskDTO = TaskDTO.builder()
                 .title("Test Task")
                 .description("This is test task")
@@ -55,7 +55,7 @@ class TaskControllerTest {
     }
 
     @Test
-    void testCreateTaskValidationError() throws Exception {
+    public void testCreateTaskValidationError() throws Exception {
         TaskDTO invalidTaskDTO = TaskDTO.builder()
                 .description("Missing title")
                 .dueDate(LocalDate.of(2024, 12, 31))

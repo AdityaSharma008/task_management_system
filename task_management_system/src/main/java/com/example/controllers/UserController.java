@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.dto.UserDTO;
 import com.example.model.User;
 import com.example.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody User user){
+    public ResponseEntity<String> createUser(@RequestBody @Valid User user){
         User createdUser = userService.createUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
