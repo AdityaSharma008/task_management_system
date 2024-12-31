@@ -5,6 +5,7 @@ import com.example.model.Task;
 import com.example.model.User;
 import com.example.services.TaskService;
 import com.example.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,18 +43,18 @@ public class TaskController {
 
     //todo: change provided argument to user id instead of user
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO){
+    public ResponseEntity<String> createTask(@RequestBody @Valid TaskDTO taskDTO){
         User taskUser = userService.getUserById(taskDTO.getUserId());
         Task createdTask = TaskDTO.toEntity(taskDTO);
 
         taskService.createTask(createdTask, taskUser);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(taskDTO);
+                .status(HttpStatus.CREATED)
+                .body("Task created successfully!");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody @Valid TaskDTO taskDTO){
         Task task = TaskDTO.toEntity(taskDTO);
         Task updatedTask = taskService.updateTask(id, task);
         TaskDTO updatedTaskDTO = TaskDTO.toTaskDTO(updatedTask);

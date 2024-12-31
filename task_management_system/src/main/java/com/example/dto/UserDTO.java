@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import com.example.model.User;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -11,7 +12,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
+    @NotBlank(message = "Username is required")
     private String username;
+
+    @NotBlank(message = "email ID is required")
     private String emailId;
 
     public static User toEntity(UserDTO userDTO){

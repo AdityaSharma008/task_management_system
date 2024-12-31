@@ -36,11 +36,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<String> createUser(@RequestBody User user){
         User createdUser = userService.createUser(user);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(createdUser);
+                .status(HttpStatus.CREATED)
+                .body("User created successfully!");
     }
 
     @DeleteMapping("/{id}")
