@@ -1,6 +1,6 @@
 package com.example.controllers;
 
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -28,13 +28,13 @@ class UserControllerTest {
 
     @Test
     public void testCreateUserSuccess() throws Exception{
-        User user = User.builder()
+        Users user = Users.builder()
                 .username("test user")
                 .password("testPassword")
                 .emailId("testEmail@test.com")
                 .build();
 
-        Mockito.when(userService.createUser(Mockito.any(User.class)))
+        Mockito.when(userService.createUser(Mockito.any(Users.class)))
                 .thenReturn(user);
 
         mockMvc.perform(post("/user")
@@ -45,7 +45,7 @@ class UserControllerTest {
 
     @Test
     public void testCreateUserValidationError() throws Exception{
-        User user = User.builder()
+        Users user = Users.builder()
                 .password("testPassword")
                 .emailId("testEmail@test.com")
                 .build();

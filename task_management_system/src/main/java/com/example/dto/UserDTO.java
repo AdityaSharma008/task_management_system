@@ -1,11 +1,8 @@
 package com.example.dto;
 
-import com.example.model.User;
+import com.example.model.Users;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -18,14 +15,14 @@ public class UserDTO {
     @NotBlank(message = "email ID is required")
     private String emailId;
 
-    public static User toEntity(UserDTO userDTO){
-        return User.builder()
+    public static Users toEntity(UserDTO userDTO){
+        return Users.builder()
                 .username(userDTO.getUsername())
                 .emailId(userDTO.getEmailId())
                 .build();
     }
 
-    public static UserDTO toUserDTO(User user){
+    public static UserDTO toUserDTO(Users user){
         return UserDTO.builder()
                 .username(user.getUsername())
                 .emailId(user.getEmailId())

@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import com.example.dto.TaskDTO;
 import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.services.TaskService;
 import com.example.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +45,7 @@ class TaskControllerTest {
 
         Task expectedValue = TaskDTO.toEntity(taskDTO);
 
-        Mockito.when(taskService.createTask(Mockito.any(Task.class), Mockito.any(User.class)))
+        Mockito.when(taskService.createTask(Mockito.any(Task.class), Mockito.any(Users.class)))
                 .thenReturn(expectedValue);
 
         mockMvc.perform(post("/tasks")

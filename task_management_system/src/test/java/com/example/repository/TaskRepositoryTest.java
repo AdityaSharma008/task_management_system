@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class TaskRepositoryTest {
-    private User user;
+    private Users user;
     private Task task;
 
     @Autowired
@@ -25,7 +25,7 @@ class TaskRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User();
+        user = new Users();
         user.setUsername("user");
         user.setPassword("password");
         user.setEmailId("testUser@test.com");

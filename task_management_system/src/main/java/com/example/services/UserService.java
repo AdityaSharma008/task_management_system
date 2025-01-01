@@ -1,12 +1,12 @@
 package com.example.services;
 
-import com.example.model.User;
+import com.example.model.Users;
 
 import java.util.List;
 
 public interface UserService {
-    User createUser(User user);
-    User getUserById(Long id);
-    List<User> getAllUsers();
+    Users createUser(Users user);
+    Users getUserById(Long id);
+    List<Users> getAllUsers();
     void deleteUser(Long id);
 }

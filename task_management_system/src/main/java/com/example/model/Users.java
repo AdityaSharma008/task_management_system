@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(exclude = "tasks")
 @Builder
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

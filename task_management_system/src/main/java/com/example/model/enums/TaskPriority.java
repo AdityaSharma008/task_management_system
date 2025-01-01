@@ -1,4 +1,4 @@
-package com.example.enums;
+package com.example.model.enums;
 
 public enum TaskPriority {
     LOW,

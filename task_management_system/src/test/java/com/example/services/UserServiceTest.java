@@ -1,7 +1,6 @@
 package com.example.services;
 
-import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.repository.UserRepository;
 import com.example.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -11,12 +10,10 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -31,7 +28,7 @@ class UserServiceTest {
 
     @Test
     public void testCreateUser(){
-        User user = User.builder()
+        Users user = Users.builder()
                 .username("test user")
                 .password("testPassword")
                 .emailId("testEmail@test.com")
@@ -39,7 +36,7 @@ class UserServiceTest {
 
         given(userRepository.save(user)).willReturn(user);
 
-        User savedUser = userService.createUser(user);
+        Users savedUser = userService.createUser(user);
 
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getUsername()).isEqualTo("test user");
@@ -50,7 +47,7 @@ class UserServiceTest {
 
     @Test
     public void shouldReturnUserWhenIdExists(){
-        User user = User.builder()
+        Users user = Users.builder()
                 .id(1L)
                 .username("test user")
                 .password("testPassword")
@@ -59,7 +56,7 @@ class UserServiceTest {
 
         given(userRepository.findById(1L)).willReturn(Optional.of(user));
 
-        User savedUser = userService.getUserById(1L);
+        Users savedUser = userService.getUserById(1L);
 
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isEqualTo(1L);
@@ -71,13 +68,13 @@ class UserServiceTest {
 
     @Test
     public void testGetAllUsers(){
-        User user = User.builder()
+        Users user = Users.builder()
                 .username("test user")
                 .password("testPassword")
                 .emailId("testEmail@test.com")
                 .build();
 
-        User user1 = User.builder()
+        Users user1 = Users.builder()
                 .username("test user2")
                 .password("testPassword2")
                 .emailId("testEmail2@test.com")
@@ -94,7 +91,7 @@ class UserServiceTest {
 
     @Test
     public void testDeleteUser(){
-        User user = User.builder()
+        Users user = Users.builder()
                 .id(1L)
                 .username("test user")
                 .password("testPassword")

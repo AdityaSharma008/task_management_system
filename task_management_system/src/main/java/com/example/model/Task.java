@@ -1,7 +1,7 @@
 package com.example.model;
 
-import com.example.enums.TaskPriority;
-import com.example.enums.TaskStatus;
+import com.example.model.enums.TaskPriority;
+import com.example.model.enums.TaskStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -51,7 +51,7 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
-    private User user;
+    private Users user;
 
     @PrePersist
     protected void onCreate() {

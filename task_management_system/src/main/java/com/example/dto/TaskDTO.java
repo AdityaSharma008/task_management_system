@@ -1,7 +1,7 @@
 package com.example.dto;
 
-import com.example.enums.TaskPriority;
-import com.example.enums.TaskStatus;
+import com.example.model.enums.TaskPriority;
+import com.example.model.enums.TaskStatus;
 import com.example.model.Task;
 import lombok.*;
 

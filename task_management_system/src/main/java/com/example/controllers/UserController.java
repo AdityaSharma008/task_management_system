@@ -1,7 +1,7 @@
 package com.example.controllers;
 
 import com.example.dto.UserDTO;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@RequestParam Long id){
-        User requestedUser = userService.getUserById(id);
+        Users requestedUser = userService.getUserById(id);
         UserDTO requestedUserDTO = UserDTO.toUserDTO(requestedUser);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody @Valid User user){
-        User createdUser = userService.createUser(user);
+    public ResponseEntity<String> createUser(@RequestBody @Valid Users user){
+        Users createdUser = userService.createUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("User created successfully!");

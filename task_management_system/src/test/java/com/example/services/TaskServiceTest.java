@@ -1,7 +1,7 @@
 package com.example.services;
 
 import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.repository.TaskRepository;
 import com.example.services.impl.TaskServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,11 +29,11 @@ class TaskServiceTest {
     @InjectMocks
     private TaskServiceImpl taskService;
 
-    private static User user;
+    private static Users user;
 
     @BeforeAll
     public static void createUser(){
-        user = User.builder()
+        user = Users.builder()
                 .username("test user")
                 .password("testPassword")
                 .emailId("testEmail@test.com")

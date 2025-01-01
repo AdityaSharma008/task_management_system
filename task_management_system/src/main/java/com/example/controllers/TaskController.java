@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import com.example.dto.TaskDTO;
 import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.services.TaskService;
 import com.example.services.UserService;
 import jakarta.validation.Valid;
@@ -44,7 +44,7 @@ public class TaskController {
     //todo: change provided argument to user id instead of user
     @PostMapping
     public ResponseEntity<String> createTask(@RequestBody @Valid TaskDTO taskDTO){
-        User taskUser = userService.getUserById(taskDTO.getUserId());
+        Users taskUser = userService.getUserById(taskDTO.getUserId());
         Task createdTask = TaskDTO.toEntity(taskDTO);
 
         taskService.createTask(createdTask, taskUser);

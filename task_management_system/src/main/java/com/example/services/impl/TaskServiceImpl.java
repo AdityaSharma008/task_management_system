@@ -1,7 +1,7 @@
 package com.example.services.impl;
 
 import com.example.model.Task;
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.repository.TaskRepository;
 import com.example.services.TaskService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task createTask(Task task, User user){
+    public Task createTask(Task task, Users user){
         task.setUser(user);
         return repository.save(task);
     }

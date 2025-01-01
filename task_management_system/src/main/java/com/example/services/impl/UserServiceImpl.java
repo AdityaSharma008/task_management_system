@@ -1,6 +1,6 @@
 package com.example.services.impl;
 
-import com.example.model.User;
+import com.example.model.Users;
 import com.example.repository.UserRepository;
 import com.example.services.UserService;
 import org.springframework.stereotype.Service;
@@ -15,19 +15,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user){
+    public Users createUser(Users user){
         return repository.save(user);
     }
 
     @Override
-    public User getUserById(Long id){
+    public Users getUserById(Long id){
         return repository.findById(id).orElseThrow(
                 () -> new RuntimeException("User not found")
         );
     }
 
     @Override
-    public List<User> getAllUsers(){
+    public List<Users> getAllUsers(){
         return repository.findAll();
     }
 
