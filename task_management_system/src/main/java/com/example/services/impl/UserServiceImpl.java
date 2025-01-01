@@ -3,6 +3,7 @@ package com.example.services.impl;
 import com.example.model.Users;
 import com.example.repository.UserRepository;
 import com.example.services.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,11 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+
     @Override
     public Users createUser(Users user){
+        user.setPassword(encoder.encode(user.getPassword()));
         return repository.save(user);
     }
 

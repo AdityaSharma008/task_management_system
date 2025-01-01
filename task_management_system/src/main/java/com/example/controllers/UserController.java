@@ -36,7 +36,7 @@ public class UserController {
                 .body(requestedUserDTO);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody @Valid Users user){
         Users createdUser = userService.createUser(user);
         return ResponseEntity
