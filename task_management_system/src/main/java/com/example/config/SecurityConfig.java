@@ -25,7 +25,8 @@ public class SecurityConfig {
                         .requestMatchers("/tasks/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .formLogin(Customizer.withDefaults());
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
