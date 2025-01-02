@@ -29,8 +29,8 @@ public class TaskDTO {
     private TaskStatus status;
     private TaskPriority priority;
 
-    @NotNull(message = "User ID is required")
-    private Long userId;
+//    @NotNull(message = "User ID is required")
+//    private Long userId;
 
     public static Task toEntity(TaskDTO taskDTO){
         return Task.builder()
@@ -51,7 +51,7 @@ public class TaskDTO {
                 .updatedAt(task.getUpdatedAt())
                 .status(task.getStatus())
                 .priority(task.getPriority())
-                .userId(task.getUser().getId())
+//                .userId(task.getUser().getId())
                 .build();
     }
 }

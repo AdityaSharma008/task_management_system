@@ -3,6 +3,7 @@ package com.example.services.impl;
 import com.example.model.Task;
 import com.example.model.Users;
 import com.example.repository.TaskRepository;
+import com.example.services.AuthService;
 import com.example.services.TaskService;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,10 @@ import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository repository;
-    public TaskServiceImpl(TaskRepository repository){
+    private final AuthService authService;
+    public TaskServiceImpl(TaskRepository repository, AuthService authService){
         this.repository = repository;
+        this.authService = authService;
     }
 
     @Override
@@ -45,5 +48,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(Long id){
         repository.delete(getTaskById(id));
+    }
+
+    @Override
+    public List<Task> getTasksForCurrentUser() {
+        Users loggedInUser = authService.getLoggedInUser();
+        return repository.findByUserId(loggedInUser.getId());
     }
 }

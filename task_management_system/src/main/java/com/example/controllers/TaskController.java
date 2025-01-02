@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.dto.TaskDTO;
 import com.example.model.Task;
 import com.example.model.Users;
+import com.example.services.AuthService;
 import com.example.services.TaskService;
 import com.example.services.UserService;
 import jakarta.validation.Valid;
@@ -19,15 +20,18 @@ import java.util.stream.Collectors;
 public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
+    private final AuthService authService;
 
-    public TaskController(TaskService taskService, UserService userService){
+    public TaskController(TaskService taskService, UserService userService, AuthService authService){
         this.taskService = taskService;
         this.userService = userService;
+        this.authService = authService;
     }
 
     @GetMapping
-    public List<TaskDTO> getAllTasks(){
-        return taskService.getAllTasks().stream()
+    public List<TaskDTO> getUserTasks(){
+        List<Task> tasks = taskService.getTasksForCurrentUser();
+        return tasks.stream()
                 .map(TaskDTO::toTaskDTO)
                 .collect(Collectors.toList());
     }
@@ -44,7 +48,7 @@ public class TaskController {
     //todo: change provided argument to user id instead of user
     @PostMapping
     public ResponseEntity<String> createTask(@RequestBody @Valid TaskDTO taskDTO){
-        Users taskUser = userService.getUserById(taskDTO.getUserId());
+        Users taskUser = authService.getLoggedInUser();
         Task createdTask = TaskDTO.toEntity(taskDTO);
 
         taskService.createTask(createdTask, taskUser);
