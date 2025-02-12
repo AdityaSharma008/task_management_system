@@ -1,5 +1,9 @@
 package com.example.controllers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import com.example.config.TestSecurityConfig;
 import com.example.dto.TaskDTO;
 import com.example.model.Task;
@@ -19,6 +23,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,5 +80,43 @@ class TaskControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidTaskDTO)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testGetUserTasks() throws Exception{
+        List<Task> mockTasks = List.of(
+               Task.builder()
+                       .title("testTitle 1")
+                       .description("description 1")
+                       .dueDate(LocalDate.of(2099,12,12)).build(),
+                Task.builder()
+                        .title("testTitle 2")
+                        .description("description 2")
+                        .dueDate(LocalDate.of(2099,12,12)).build()
+        );
+
+        Mockito.when(taskService.getTasksForCurrentUser()).thenReturn(mockTasks);
+
+        mockMvc.perform(get("/tasks")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].title").value("testTitle 1"))
+                .andExpect(jsonPath("$[1].title").value("testTitle 2"));
+    }
+
+    @Test
+    public void testGetTaskById() throws Exception{
+        Task testTask = Task.builder()
+                .title("testTitle 1")
+                .description("description 1")
+                .dueDate(LocalDate.of(2099,12,12)).build();
+
+        Mockito.when(taskService.getTaskById(1L)).thenReturn(testTask);
+
+        mockMvc.perform(get("/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("testTitle 1"));
     }
 }
