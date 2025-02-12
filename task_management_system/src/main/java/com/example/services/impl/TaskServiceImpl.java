@@ -1,5 +1,6 @@
 package com.example.services.impl;
 
+import com.example.exceptions.ResourceNotFoundException;
 import com.example.model.Task;
 import com.example.model.Users;
 import com.example.repository.TaskRepository;
@@ -27,7 +28,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task getTaskById(Long id){
         return repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Task not found")
+                () -> new ResourceNotFoundException("Task with id: " + id + " not found.")
         );
     }
 
