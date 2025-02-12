@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
-    private final UserService userService;
     private final AuthService authService;
 
-    public TaskController(TaskService taskService, UserService userService, AuthService authService){
+    public TaskController(TaskService taskService, AuthService authService){
         this.taskService = taskService;
-        this.userService = userService;
         this.authService = authService;
     }
 
