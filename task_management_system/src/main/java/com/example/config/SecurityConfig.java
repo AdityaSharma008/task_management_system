@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/tasks/**").authenticated()
+//                        .requestMatchers("/tasks/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
