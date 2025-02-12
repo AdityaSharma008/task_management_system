@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.config.TestSecurityConfig;
 import com.example.model.Users;
 import com.example.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(UserController.class)
+@Import(TestSecurityConfig.class)
 class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -37,7 +40,7 @@ class UserControllerTest {
         Mockito.when(userService.createUser(Mockito.any(Users.class)))
                 .thenReturn(user);
 
-        mockMvc.perform(post("/user")
+        mockMvc.perform(post("/user/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isCreated());
@@ -51,7 +54,7 @@ class UserControllerTest {
                 .build();
 
 
-        mockMvc.perform(post("/user")
+        mockMvc.perform(post("/user/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isBadRequest());

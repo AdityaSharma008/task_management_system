@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -37,10 +38,11 @@ class UserServiceTest {
         given(userRepository.save(user)).willReturn(user);
 
         Users savedUser = userService.createUser(user);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getUsername()).isEqualTo("test user");
-        assertThat(savedUser.getPassword()).isEqualTo("testPassword");
+        assertThat(passwordEncoder.matches("testPassword", savedUser.getPassword())).isTrue();
         assertThat(savedUser.getEmailId()).isEqualTo("testEmail@test.com");
         verify(userRepository).save(user);
     }
