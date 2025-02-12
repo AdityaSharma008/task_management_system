@@ -1,5 +1,6 @@
 package com.example.services.impl;
 
+import com.example.exceptions.ResourceNotFoundException;
 import com.example.model.Users;
 import com.example.repository.UserRepository;
 import com.example.services.UserService;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users getUserById(Long id){
         return repository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found")
+                () -> new ResourceNotFoundException("User with id: " + id + " not found.")
         );
     }
 
